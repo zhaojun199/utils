@@ -5,9 +5,10 @@ var warn = console.warn;
  * @param 	any 	{any}  需要打印的参数，同console.log
  * @return 		 	{undefined}
  */
-var log = function(args) {
+var log = function() {
+	var args = arguments;
 	if (log.showLog) {
-		const t = new Date().toLocaleTimeString();
+		var t = new Date().toLocaleTimeString();
         console.log(t,': ', args);
 	}
 };
