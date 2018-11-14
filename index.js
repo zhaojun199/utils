@@ -1,12 +1,30 @@
-var log = console.log;
 var warn = console.warn;
+
+/**
+ * 打印
+ * @param 	any 	{any}  需要打印的参数，同console.log
+ * @return 		 	{undefined}
+ */
+var log = function(args) {
+	if (log.showLog) {
+		const t = new Date().toLocaleTimeString();
+        console.log(t,': ', args);
+	}
+};
+log.showLog = true;
+
+/**
+ * 打印序列化后的参数，同console.log
+ * @param 	any 	{any}  需要打印的参数，同console.log
+ * @return 		 	{undefined}
+ */
 var logs = function() {
 	var args = arguments;
 	var jsonArgs = Array.prototype.map.call(args, it => {
 		return JSON.stringify(it);
 	});
 	return console.log.apply(this, jsonArgs);
-}
+};
 
 /**
  * 空闲控制 返回函数连续调用时，空闲时间必须大于或等于 delay，action 才会执行
@@ -33,6 +51,7 @@ function debounce(action, delay) {
 }
 
 var utils = {};
+utils.log = log;
 utils.logs = logs;
 utils.debounce = debounce;
 
