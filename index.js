@@ -6,10 +6,10 @@ var warn = console.warn;
  * @return 		 	{undefined}
  */
 var log = function() {
-	var args = arguments;
+	var args = arguments || [];
 	if (log.showLog) {
 		var t = new Date().toLocaleTimeString();
-        console.log(t,': ', args);
+        console.log.apply(console, [t,': '].concat(Array.from(args)));
 	}
 };
 log.showLog = true;
