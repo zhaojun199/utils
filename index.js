@@ -9,7 +9,7 @@ var log = function() {
 	var args = arguments || [];
 	if (log.showLog) {
 		var t = new Date().toLocaleTimeString();
-        console.log.apply(console, [t,': '].concat(Array.from(args)));
+		console.log.apply(console, [t,': '].concat(Array.from(args)));
 	}
 };
 log.showLog = true;
@@ -50,10 +50,27 @@ function debounce(action, delay) {
 		}, delay);
 	};
 }
+/**
+ * 获取对象内的属性
+ * @param object 		{object}	传入的对象
+ * @param path   		{string}	获取的属性路径
+ * @param defaultValue	{any}		查不到时返回的默认值
+ * @return 		 		{any}	要获取的对象属性
+ */
+function get(object, path, defaultValue) {
+	return (!Array.isArray(path)
+				? path.replace(/\[/g, '.')
+					.replace(/\]/g, '')
+					.split('.')
+				: path)
+				.reduce((o, k) => (o || {})[k], object) || defaultValue;
+}
 
 var utils = {};
 utils.log = log;
 utils.logs = logs;
 utils.debounce = debounce;
+utils.get = get;
+
 
 module.exports = utils;
